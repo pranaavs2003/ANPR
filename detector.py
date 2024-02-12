@@ -18,13 +18,16 @@ class ImageDetail(BaseModel):
     image_url: str
     
 def detector(carImage: ImageDetail):
-    #print(carImage)
     local_file = carImage.image_url
+    response = cv_client.read(local_file,  raw=True)
     
-    # Read the image file
-    with open(local_file, 'rb') as image_file:
-        # Perform OCR on the image
-        response = cv_client.read_in_stream(image_file, raw=True)
+    # #print(carImage)
+    # local_file = carImage.image_url
+    
+    # # Read the image file
+    # with open(local_file, 'rb') as image_file:
+    #     # Perform OCR on the image
+    #     response = cv_client.read_in_stream(image_file, raw=True)
     
     #response = cv_client.read(local_file,  raw=True)
     operationLocation = response.headers['Operation-Location']

@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 import imutils
-# import easyocr
+import easyocr
 from detector import detector
 from pydantic import BaseModel
 from fastapi import FastAPI
@@ -79,38 +79,47 @@ def detect(imageDetails: ImageDetail):
     (x2, y2) = (np.max(x), np.max(y))
     cropped_image = gray[x1:x2+1, y1:y2+1]
 
-    try:
-        image_url = './number_plate_extracted/cropped_image.jpg'
-        cv2.imwrite(image_url, cropped_image)
-        carDetail = ImageDetail(image_url = image_url)
-        res = detector(carDetail)
-        return {
+    carDetail = ImageDetail(image_url = img_url)
+    res = detector(carDetail)
+    return {
             "status": "Success",
             "value": res[0].replace(' ', ''),
             "model": "1"
         }
 
-    except:
-        try:
-            carDetail = ImageDetail(image_url = img_url)
-            res = detector(carDetail)
-            return {
-                "status": "Success",
-                "value": res[0].replace(' ', ''),
-                "model": "2"
-            }
+    # try:
+    #     image_url = './number_plate_extracted/cropped_image.jpg'
+    #     cv2.imwrite(image_url, cropped_image)
+    #     carDetail = ImageDetail(image_url = image_url)
+    #     res = detector(carDetail)
+    #     return {
+    #         "status": "Success",
+    #         "value": res[0].replace(' ', ''),
+    #         "model": "1"
+    #     }
+
+    # except:
+    #     try:
+    #         # carDetail = ImageDetail(image_url = img_url)
+    #         # res = detector(carDetail)
+    #         # return {
+    #         #     "status": "Success",
+    #         #     "value": res[0].replace(' ', ''),
+    #         #     "model": "2"
+    #         # }
             
-            # reader = easyocr.Reader(['en'])
-            # result = reader.readtext(cropped_image)
-            # return {
-            #     "status": "Success",
-            #     "value": result[0][2].replace(' ', ''),
-            #     "model": "2"
-            # }
-        except:
-            return {
-                "status": "Error"
-            }
+    #         reader = easyocr.Reader(['en'])
+    #         result = reader.readtext(cropped_image)
+    #         return {
+    #             "status": "Success",
+    #             "value": result[0][2].replace(' ', ''),
+    #             "model": "2"
+    #         }
+            
+    #     except:
+    #         return {
+    #             "status": "Error"
+    #         }
 
 # imageDetails = ImageDetail(image_url = 'image4.jpg')
 # detect(imageDetails)

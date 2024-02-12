@@ -3,6 +3,7 @@ requests
 matplotlib
 numpy
 imutils
+easyocr
 pydantic
 uvicorn
 fastapi
