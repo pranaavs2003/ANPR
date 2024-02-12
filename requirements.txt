@@ -1,9 +1,13 @@
 opencv-python
+requests
 matplotlib
 numpy
 imutils
+easyocr
 pydantic
-azure
-dotenv
 uvicorn
 fastapi
+azure-cognitiveservices-vision-computervision==0.9.0
+python-dotenv==0.21.1
+azure-common==1.1.28
+azure-core==1.26.3
