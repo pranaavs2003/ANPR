@@ -19,7 +19,9 @@ class ImageDetail(BaseModel):
     
 def detector(carImage: ImageDetail):
     local_file = carImage.image_url
+    local_file = "https://res.cloudinary.com/dbzzj25vc/image/upload/v1707723118/Parkpilot/ubcu7k0whv2ydbftw85e.jpg"
     response = cv_client.read(local_file,  raw=True)
+    
     
     # #print(carImage)
     # local_file = carImage.image_url
