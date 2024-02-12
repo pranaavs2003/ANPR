@@ -2,7 +2,7 @@ import cv2
 from matplotlib import pyplot as plt
 import numpy as np
 import imutils
-import easyocr
+# import easyocr
 from detector import detector
 from pydantic import BaseModel
 from fastapi import FastAPI
