@@ -1,0 +1,9 @@
+opencv-python
+matplotlib
+numpy
+imutils
+pydantic
+azure
+dotenv
+uvicorn
+fastapi
