@@ -6,6 +6,8 @@ import easyocr
 from detector import detector
 from pydantic import BaseModel
 from fastapi import FastAPI
+import urllib.request
+from io import BytesIO
 
 app = FastAPI()
 
@@ -16,7 +18,16 @@ class ImageDetail(BaseModel):
 def detect(imageDetails: ImageDetail):
     
     img_url = imageDetails.image_url
-    img = cv2.imread('./images/'+img_url)
+
+    # Download the image from the URL
+    response = urllib.request.urlopen(img_url)
+    img_bytes = response.read()
+
+    # Convert the image bytes to a numpy array
+    nparr = np.frombuffer(img_bytes, np.uint8)
+    img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    
+    # img = cv2.imread('./images/'+img_url)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     bfilter = cv2.bilateralFilter(gray, 11, 17, 17) #Noise reduction
