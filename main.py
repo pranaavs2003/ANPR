@@ -8,8 +8,28 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import urllib.request
 from io import BytesIO
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# Set up allowed origins
+origins = [
+    "http://localhost",
+    "http://localhost:8000",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "https://checkd.vercel.app"
+    "https://anpr-1lby.onrender.com"
+]
+
+# Add the CORS middleware to the app
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class ImageDetail(BaseModel):
     image_url: str
