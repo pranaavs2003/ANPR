@@ -92,21 +92,13 @@ def detect(imageDetails: ImageDetail):
 
     except:
         try:
-            carDetail = ImageDetail(image_url = img_url)
-            res = detector(carDetail)
+            reader = easyocr.Reader(['en'])
+            result = reader.readtext(cropped_image)
             return {
                 "status": "Success",
-                "value": res[0].replace(' ', ''),
+                "value": result[0][2].replace(' ', ''),
                 "model": "2"
             }
-            
-            # reader = easyocr.Reader(['en'])
-            # result = reader.readtext(cropped_image)
-            # return {
-            #     "status": "Success",
-            #     "value": result[0][2].replace(' ', ''),
-            #     "model": "2"
-            # }
         except:
             return {
                 "status": "Error"
