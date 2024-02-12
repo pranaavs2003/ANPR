@@ -14,6 +14,12 @@ app = FastAPI()
 class ImageDetail(BaseModel):
     image_url: str
 
+@app.get("/test")
+def test():
+    return {
+        "status": "Works Fine! 👍"
+    }
+
 @app.post("/detect")
 def detect(imageDetails: ImageDetail):
     
